@@ -2451,7 +2451,7 @@
     ],
     "Forceable": [
       {
-        "Pokemon": "raichu",
+        "Pokemon": "raichu-alolan",
         "Donut": "Psychic"
       },
       {
@@ -2563,7 +2563,7 @@
         "Donut": "Poison"
       },
       {
-        "Pokemon": "toxtricity",
+        "Pokemon": "toxtricity-low-key",
         "Donut": "Poison"
       },
       {
@@ -2605,7 +2605,7 @@
         "Donut": "Poison"
       },
       {
-        "Pokemon": "toxtricity",
+        "Pokemon": "toxtricity-low-key",
         "Donut": "Poison"
       },
       {
@@ -2639,7 +2639,7 @@
         "Donut": "Poison"
       },
       {
-        "Pokemon": "toxtricity",
+        "Pokemon": "toxtricity-low-key",
         "Donut": "Poison"
       },
       {
@@ -2734,7 +2734,7 @@
     ],
     "Forceable": [
       {
-        "Pokemon": "raichu",
+        "Pokemon": "raichu-alolan",
         "Donut": "Psychic"
       }
     ]
@@ -2763,23 +2763,23 @@
         "Donut": "Ghost"
       },
       {
-        "Pokemon": "rotom",
+        "Pokemon": "rotom-heat",
         "Donut": "Fire"
       },
       {
-        "Pokemon": "rotom",
+        "Pokemon": "rotom-wash",
         "Donut": "Water"
       },
       {
-        "Pokemon": "rotom",
+        "Pokemon": "rotom-fan",
         "Donut": "Flying"
       },
       {
-        "Pokemon": "rotom",
+        "Pokemon": "rotom-frost",
         "Donut": "Ice"
       },
       {
-        "Pokemon": "rotom",
+        "Pokemon": "rotom-mow",
         "Donut": "Grass"
       }
     ]
@@ -4977,6 +4977,10 @@
         "Donut": "Normal"
       },
       {
+        "Pokemon": "pyroar-f",
+        "Donut": "Normal"
+      },
+      {
         "Pokemon": "litleo",
         "Donut": "Normal"
       }
@@ -5020,6 +5024,10 @@
       },
       {
         "Pokemon": "pyroar",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "pyroar-f",
         "Donut": "Normal"
       },
       {
@@ -5093,7 +5101,7 @@
         "Donut": "Normal"
       },
       {
-        "Pokemon": "pyroar",
+        "Pokemon": "pyroar-f",
         "Donut": "Normal"
       }
     ]
@@ -5130,7 +5138,7 @@
         "Donut": "Normal"
       },
       {
-        "Pokemon": "pyroar",
+        "Pokemon": "pyroar-f",
         "Donut": "Normal"
       }
     ]
@@ -9610,7 +9618,7 @@
         "Donut": "Psychic"
       },
       {
-        "Pokemon": "indeedee",
+        "Pokemon": "indeedee-female",
         "Donut": "Psychic"
       },
       {
@@ -9650,7 +9658,7 @@
         "Donut": "Psychic"
       },
       {
-        "Pokemon": "indeedee",
+        "Pokemon": "indeedee-female",
         "Donut": "Psychic"
       }
     ]
@@ -11011,6 +11019,18 @@
       "qwilfish-hisuian"
     ],
     "Forceable": [
+      {
+        "Pokemon": "slowpoke-galarian",
+        "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "slowbro-galarian",
+        "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "slowking-galarian",
+        "Donut": "Psychic"
+      },
       {
         "Pokemon": "overqwil",
         "Donut": "Dark"
@@ -14119,11 +14139,11 @@
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-stretchy",
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-droopy",
         "Donut": "Dragon"
       },
       {
@@ -14158,11 +14178,11 @@
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-stretchy",
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-droopy",
         "Donut": "Dragon"
       },
       {
@@ -14201,11 +14221,11 @@
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-stretchy",
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-droopy",
         "Donut": "Dragon"
       },
       {
@@ -14248,11 +14268,11 @@
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-stretchy",
         "Donut": "Dragon"
       },
       {
-        "Pokemon": "tatsugiri",
+        "Pokemon": "tatsugiri-droopy",
         "Donut": "Dragon"
       },
       {
