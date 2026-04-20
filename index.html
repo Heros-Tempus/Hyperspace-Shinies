@@ -296,6 +296,127 @@
     opacity: 0.8;
   }
 
+  /* ── Search bar ── */
+  .search-bar {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .search-input-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 420px;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .search-input:focus {
+    border-color: rgba(255,255,255,0.25);
+  }
+  .search-input::placeholder {
+    color: var(--muted);
+  }
+
+  /* Autocomplete dropdown */
+  .search-suggestions {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--surface2);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .search-suggestions.open { display: block; }
+  .suggestion {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--text);
+  }
+  .suggestion:hover,
+  .suggestion.active {
+    background: rgba(255,255,255,0.07);
+  }
+  .suggestion mark {
+    background: none;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Checkbox + label */
+  .search-check-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  .search-check-wrap input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+    background: var(--surface2);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .search-check-wrap input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .search-check-wrap input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #0d0f14;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+  .search-check-wrap span {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* Result count */
+  .search-result-count {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* Hidden tile / hidden type section */
+  .tile.hidden { display: none; }
+  .type-section.all-hidden,
+  .tile-grid.all-hidden,
+  .type-divider.all-hidden { display: none; }
+
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -305,9 +426,31 @@
 <body>
 
 <header>
-  <h1>Legends ZA - Shiny Spawn Guide</h1>
+  <h1>Legends ZA &mdash; Shiny Spawn Guide</h1>
   <p>Donut-forceable shiny encounters by type</p>
 </header>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <input
+      id="search-input"
+      class="search-input"
+      type="text"
+      placeholder="Search Pokémon…"
+      autocomplete="off"
+      spellcheck="false"
+      aria-label="Search Pokémon"
+      aria-autocomplete="list"
+      aria-controls="search-suggestions"
+    >
+    <div id="search-suggestions" class="search-suggestions" role="listbox"></div>
+  </div>
+  <label class="search-check-wrap">
+    <input id="forceable-only" type="checkbox">
+    <span>Forceable only</span>
+  </label>
+  <span id="result-count" class="search-result-count"></span>
+</div>
 
 <div id="app"></div>
 
@@ -315,6 +458,60 @@
 let PMAP = {};
 let DATA = [];
 
+// ── Name → slug lookup table, built once after PMAP loads ──────────────────
+// Each entry: { display: "Low Key Toxtricity", slug: "toxtricity-low-key" }
+// Multiple entries can share the same slug (both orderings of form names).
+let NAME_MAP = []; // sorted alphabetically by display for binary-search prefix matching
+
+function buildNameMap() {
+  const entries = [];
+  const seen = new Set(); // deduplicate identical display strings
+
+  for (const [slug, data] of Object.entries(PMAP)) {
+    const pokemonName = data.Pokemon; // e.g. "Toxtricity", "Mr. Mime"
+    // Derive the base slug from the display name (same logic used during data cleanup)
+    const baseSlug = pokemonName.toLowerCase()
+      .replace(/\s+/g, '-').replace(/\./g, '').replace(/'/g, '');
+
+    if (slug === baseSlug) {
+      // No suffix — just the plain name
+      const key = pokemonName;
+      if (!seen.has(key)) { seen.add(key); entries.push({ display: key, slug }); }
+    } else if (slug.startsWith(baseSlug + '-')) {
+      // Has a suffix, e.g. "toxtricity-low-key" → suffix "low-key"
+      const suffixRaw = slug.slice(baseSlug.length + 1);
+      // Title-case each word of the suffix, treating hyphens as word separators
+      const suffixDisplay = suffixRaw.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      // Two orderings: "Toxtricity Low Key" and "Low Key Toxtricity"
+      const nameSuffix = `${pokemonName} ${suffixDisplay}`;
+      const suffixName = `${suffixDisplay} ${pokemonName}`;
+      for (const key of [nameSuffix, suffixName]) {
+        if (!seen.has(key)) { seen.add(key); entries.push({ display: key, slug }); }
+      }
+    }
+    // Edge case: slug doesn't start with baseSlug (shouldn't occur in this dataset)
+  }
+
+  // Sort alphabetically so we can quickly find prefix matches
+  entries.sort((a, b) => a.display.localeCompare(b.display));
+  NAME_MAP = entries;
+}
+
+// Return all NAME_MAP entries whose display name starts with the given prefix (case-insensitive)
+function suggestionsFor(prefix) {
+  if (!prefix) return [];
+  const lower = prefix.toLowerCase();
+  return NAME_MAP.filter(e => e.display.toLowerCase().startsWith(lower));
+}
+
+// Return the set of slugs that exactly match a display string (case-insensitive)
+function slugsForExact(query) {
+  const lower = query.toLowerCase();
+  const matched = NAME_MAP.filter(e => e.display.toLowerCase() === lower);
+  return new Set(matched.map(e => e.slug));
+}
+
+// ── Type colours ─────────────────────────────────────────────────────────────
 const TYPE_COLORS = {
   Bug:'#8fbc2e', Dark:'#4a4060', Dragon:'#4f4fc8', Electric:'#f5c842',
   Fairy:'#e87ec8', Fighting:'#c04830', Fire:'#f06830', Flying:'#8098e0',
@@ -406,6 +603,168 @@ function buildTile(entry) {
   </div>`;
 }
 
+// ── Filtering ────────────────────────────────────────────────────────────────
+
+function tileMatches(entry, matchSlugs, forceableOnly) {
+  if (forceableOnly) {
+    if (matchSlugs === null) {
+      // Checkbox on, no text: show any tile that has at least one forceable entry
+      return entry.Forceable.length > 0;
+    }
+    // Checkbox on, text entered: match against forceable slugs
+    return entry.Forceable.some(f => matchSlugs.has(f.Pokemon));
+  }
+  // Checkbox off: match against all available slugs
+  return entry.AvailableData.some(s => matchSlugs.has(s));
+}
+
+function applyFilter() {
+  const query = document.getElementById('search-input').value.trim();
+  const forceableOnly = document.getElementById('forceable-only').checked;
+
+  // Determine which slugs to match against.
+  // null = no slug filtering needed (forceableOnly with empty query).
+  let matchSlugs = null;
+  if (query) {
+    matchSlugs = slugsForExact(query);
+    // If the query is a prefix that matches exactly one slug set, use it;
+    // otherwise fall back to all slugs whose display starts with the query.
+    if (matchSlugs.size === 0) {
+      const suggestions = suggestionsFor(query);
+      matchSlugs = new Set(suggestions.map(s => s.slug));
+    }
+  }
+
+  // If no filter is active at all, show everything
+  const noFilter = !query && !forceableOnly;
+
+  let visibleCount = 0;
+
+  document.querySelectorAll('.tile-grid').forEach(grid => {
+    const type = grid.dataset.type;
+    const section = document.querySelector(`.type-section[data-type="${type}"]`);
+    const divider = grid.nextElementSibling; // .type-divider
+
+    let gridHasVisible = false;
+
+    grid.querySelectorAll('.tile').forEach(tileEl => {
+      const id = parseInt(tileEl.dataset.id, 10);
+      const entry = DATA.find(e => e.id === id);
+      const visible = noFilter || tileMatches(entry, matchSlugs, forceableOnly);
+
+      tileEl.classList.toggle('hidden', !visible);
+      if (visible) { gridHasVisible = true; visibleCount++; }
+    });
+
+    // Hide the whole type section + divider when all its tiles are hidden
+    section?.classList.toggle('all-hidden', !gridHasVisible);
+    grid.classList.toggle('all-hidden', !gridHasVisible);
+    divider?.classList.toggle('all-hidden', !gridHasVisible);
+  });
+
+  // Update result count label
+  const countEl = document.getElementById('result-count');
+  if (noFilter) {
+    countEl.textContent = '';
+  } else {
+    countEl.textContent = `${visibleCount} encounter${visibleCount !== 1 ? 's' : ''}`;
+  }
+}
+
+// ── Autocomplete ─────────────────────────────────────────────────────────────
+
+function setupSearch() {
+  const input = document.getElementById('search-input');
+  const suggestionsBox = document.getElementById('search-suggestions');
+  const checkbox = document.getElementById('forceable-only');
+
+  let activeIndex = -1; // keyboard-highlighted suggestion index
+
+  function closeSuggestions() {
+    suggestionsBox.classList.remove('open');
+    suggestionsBox.innerHTML = '';
+    activeIndex = -1;
+  }
+
+  function openSuggestions(query) {
+    const matches = suggestionsFor(query).slice(0, 30); // cap at 30 items
+    if (!matches.length) { closeSuggestions(); return; }
+
+    const lowerQuery = query.toLowerCase();
+    suggestionsBox.innerHTML = matches.map((m, i) => {
+      // Bold the matching prefix inside the display name
+      const matchedPart = m.display.slice(0, query.length);
+      const rest = m.display.slice(query.length);
+      return `<div class="suggestion" role="option" data-index="${i}" data-display="${m.display}"><mark>${matchedPart}</mark>${rest}</div>`;
+    }).join('');
+
+    suggestionsBox.classList.add('open');
+    activeIndex = -1;
+  }
+
+  function commitSuggestion(display) {
+    input.value = display;
+    closeSuggestions();
+    applyFilter();
+  }
+
+  // Typing in the input
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    if (q) openSuggestions(q); else closeSuggestions();
+    applyFilter();
+  });
+
+  // Keyboard navigation inside suggestions
+  input.addEventListener('keydown', e => {
+    const items = suggestionsBox.querySelectorAll('.suggestion');
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, -1);
+    } else if (e.key === 'Enter') {
+      if (activeIndex >= 0) {
+        e.preventDefault();
+        commitSuggestion(items[activeIndex].dataset.display);
+      } else {
+        closeSuggestions();
+      }
+      return;
+    } else if (e.key === 'Escape') {
+      closeSuggestions();
+      return;
+    } else {
+      return;
+    }
+
+    items.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
+    if (activeIndex >= 0) items[activeIndex].scrollIntoView({ block: 'nearest' });
+  });
+
+  // Clicking a suggestion
+  suggestionsBox.addEventListener('mousedown', e => {
+    const suggestion = e.target.closest('.suggestion');
+    if (suggestion) {
+      e.preventDefault(); // prevent input blur before commit
+      commitSuggestion(suggestion.dataset.display);
+    }
+  });
+
+  // Close dropdown when clicking elsewhere
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-input-wrap')) closeSuggestions();
+  });
+
+  // Checkbox toggles filter without requiring a re-type
+  checkbox.addEventListener('change', applyFilter);
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+
 function render() {
   const groups = {};
   for (const entry of DATA) {
@@ -458,6 +817,8 @@ function render() {
   });
 }
 
+// ── Initialisation ────────────────────────────────────────────────────────────
+
 async function init() {
   const app = document.getElementById('app');
   app.innerHTML = '<p style="padding:2rem;color:var(--muted);font-size:0.9rem">Loading data…</p>';
@@ -468,7 +829,9 @@ async function init() {
     ]);
     PMAP = Object.assign({}, ...pmapRaw);
     DATA = dataRaw;
+    buildNameMap();
     render();
+    setupSearch();
   } catch (err) {
     app.innerHTML = `<p style="padding:2rem;color:#f85888">Failed to load data: ${err.message}.<br>Make sure the JSON files are in the same directory as index.html and you are serving via a local server (not file://).</p>`;
   }
