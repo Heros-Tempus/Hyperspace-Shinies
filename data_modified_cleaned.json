@@ -461,6 +461,18 @@
       {
         "Pokemon": "scizor",
         "Donut": "Steel"
+      },
+      {
+        "Pokemon": "kleavor",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scyther",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scizor",
+        "Donut": "Bug"
       }
     ]
   },
@@ -1168,6 +1180,14 @@
       {
         "Pokemon": "inkay",
         "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "tyranitar",
+        "Donut": "Rock"
+      },
+      {
+        "Pokemon": "pupitar",
+        "Donut": "Rock"
       }
     ]
   },
@@ -1261,7 +1281,16 @@
       "pangoro",
       "pancham"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "greninja",
+        "Donut": "Water"
+      },
+      {
+        "Pokemon": "frogadier",
+        "Donut": "Water"
+      }
+    ]
   },
   {
     "id": 466,
@@ -1341,7 +1370,16 @@
       "pangoro",
       "pancham"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "pangoro",
+        "Donut": "Fighting"
+      },
+      {
+        "Pokemon": "pancham",
+        "Donut": "Fighting"
+      }
+    ]
   },
   {
     "id": 469,
@@ -1796,6 +1834,14 @@
         "Donut": "Water"
       },
       {
+        "Pokemon": "dragalge",
+        "Donut": "Poison"
+      },
+      {
+        "Pokemon": "skrelp",
+        "Donut": "Poison"
+      },
+      {
         "Pokemon": "drampa",
         "Donut": "Normal"
       }
@@ -1884,6 +1930,14 @@
       {
         "Pokemon": "skrelp",
         "Donut": "Water"
+      },
+      {
+        "Pokemon": "dragalge",
+        "Donut": "Poison"
+      },
+      {
+        "Pokemon": "skrelp",
+        "Donut": "Poison"
       }
     ]
   },
@@ -1930,6 +1984,14 @@
       {
         "Pokemon": "skrelp",
         "Donut": "Water"
+      },
+      {
+        "Pokemon": "dragalge",
+        "Donut": "Poison"
+      },
+      {
+        "Pokemon": "skrelp",
+        "Donut": "Poison"
       },
       {
         "Pokemon": "noivern",
@@ -3960,7 +4022,16 @@
       "pignite",
       "tepig"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "pignite",
+        "Donut": "Fire"
+      },
+      {
+        "Pokemon": "tepig",
+        "Donut": "Fire"
+      }
+    ]
   },
   {
     "id": 59,
@@ -4014,6 +4085,14 @@
       {
         "Pokemon": "meditite",
         "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "pignite",
+        "Donut": "Fire"
+      },
+      {
+        "Pokemon": "tepig",
+        "Donut": "Fire"
       }
     ]
   },
@@ -4180,7 +4259,16 @@
       "chesnaught",
       "quilladin"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "chesnaught",
+        "Donut": "Grass"
+      },
+      {
+        "Pokemon": "quilladin",
+        "Donut": "Grass"
+      }
+    ]
   },
   {
     "id": 67,
@@ -4797,6 +4885,14 @@
         "Donut": "Normal"
       },
       {
+        "Pokemon": "fletchinder",
+        "Donut": "Flying"
+      },
+      {
+        "Pokemon": "fletchling",
+        "Donut": "Flying"
+      },
+      {
         "Pokemon": "lampent",
         "Donut": "Ghost"
       },
@@ -5399,7 +5495,16 @@
       "vivillon",
       "scatterbug"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "vivillon",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scatterbug",
+        "Donut": "Bug"
+      }
+    ]
   },
   {
     "id": 74,
@@ -5451,7 +5556,16 @@
       "vivillon",
       "spewpa"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "vivillon",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "spewpa",
+        "Donut": "Bug"
+      }
+    ]
   },
   {
     "id": 77,
@@ -5469,7 +5583,16 @@
       "vivillon",
       "scatterbug"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "vivillon",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scatterbug",
+        "Donut": "Bug"
+      }
+    ]
   },
   {
     "id": 78,
@@ -5542,6 +5665,14 @@
       {
         "Pokemon": "swablu",
         "Donut": "Normal"
+      },
+      {
+        "Pokemon": "vivillon",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "spewpa",
+        "Donut": "Bug"
       }
     ]
   },
@@ -7920,6 +8051,14 @@
       {
         "Pokemon": "stunfisk",
         "Donut": "Electric"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -7987,6 +8126,14 @@
       {
         "Pokemon": "gible",
         "Donut": "Dragon"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -8049,6 +8196,14 @@
       {
         "Pokemon": "onix",
         "Donut": "Rock"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -8081,6 +8236,14 @@
       {
         "Pokemon": "sandile",
         "Donut": "Dark"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -8143,6 +8306,14 @@
       {
         "Pokemon": "stunfisk",
         "Donut": "Electric"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -8210,6 +8381,14 @@
       {
         "Pokemon": "sandile",
         "Donut": "Dark"
+      },
+      {
+        "Pokemon": "diggersby",
+        "Donut": "Normal"
+      },
+      {
+        "Pokemon": "bunnelby",
+        "Donut": "Normal"
       }
     ]
   },
@@ -8548,7 +8727,7 @@
       "golurk",
       "golett",
       "stunfisk",
-      "stunfisk"
+      "stunfisk-galarian"
     ],
     "Forceable": [
       {
@@ -8564,7 +8743,7 @@
         "Donut": "Electric"
       },
       {
-        "Pokemon": "stunfisk",
+        "Pokemon": "stunfisk-galarian",
         "Donut": "Steel"
       }
     ]
@@ -8907,6 +9086,18 @@
       {
         "Pokemon": "froslass",
         "Donut": "Ghost"
+      },
+      {
+        "Pokemon": "froslass",
+        "Donut": "Ice"
+      },
+      {
+        "Pokemon": "glalie",
+        "Donut": "Ice"
+      },
+      {
+        "Pokemon": "snorunt",
+        "Donut": "Ice"
       }
     ]
   },
@@ -8936,6 +9127,14 @@
       {
         "Pokemon": "snover",
         "Donut": "Grass"
+      },
+      {
+        "Pokemon": "crabominable",
+        "Donut": "Fighting"
+      },
+      {
+        "Pokemon": "crabrawler",
+        "Donut": "Fighting"
       }
     ]
   },
@@ -8957,7 +9156,16 @@
       "avalugg",
       "bergmite"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "crabominable",
+        "Donut": "Fighting"
+      },
+      {
+        "Pokemon": "crabrawler",
+        "Donut": "Fighting"
+      }
+    ]
   },
   {
     "id": 419,
@@ -8985,6 +9193,14 @@
       {
         "Pokemon": "snover",
         "Donut": "Grass"
+      },
+      {
+        "Pokemon": "crabominable",
+        "Donut": "Fighting"
+      },
+      {
+        "Pokemon": "crabrawler",
+        "Donut": "Fighting"
       }
     ]
   },
@@ -11450,13 +11666,13 @@
     "Type": "Psychic",
     "Displayed": [
       "kirlia",
-      "slowpoke",
+      "slowpoke-galarian",
       "beldum"
     ],
     "AvailableData": [
       "kirlia",
       "ralts",
-      "slowpoke",
+      "slowpoke-galarian",
       "beldum"
     ],
     "Forceable": [
@@ -11820,6 +12036,14 @@
       {
         "Pokemon": "inkay",
         "Donut": "Dark"
+      },
+      {
+        "Pokemon": "delphox",
+        "Donut": "Fire"
+      },
+      {
+        "Pokemon": "braixen",
+        "Donut": "Fire"
       }
     ]
   },
@@ -11982,6 +12206,14 @@
       {
         "Pokemon": "eevee",
         "Donut": "Normal"
+      },
+      {
+        "Pokemon": "starmie",
+        "Donut": "Water"
+      },
+      {
+        "Pokemon": "staryu",
+        "Donut": "Water"
       }
     ]
   },
@@ -13239,6 +13471,14 @@
       {
         "Pokemon": "beldum",
         "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "steelix",
+        "Donut": "Ground"
+      },
+      {
+        "Pokemon": "onix",
+        "Donut": "Ground"
       }
     ]
   },
@@ -13300,6 +13540,14 @@
       {
         "Pokemon": "scyther",
         "Donut": "Flying"
+      },
+      {
+        "Pokemon": "scizor",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scyther",
+        "Donut": "Bug"
       }
     ]
   },
@@ -13374,6 +13622,14 @@
       {
         "Pokemon": "scyther",
         "Donut": "Flying"
+      },
+      {
+        "Pokemon": "scizor",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scyther",
+        "Donut": "Bug"
       }
     ]
   },
@@ -13448,6 +13704,14 @@
       {
         "Pokemon": "scyther",
         "Donut": "Flying"
+      },
+      {
+        "Pokemon": "scizor",
+        "Donut": "Bug"
+      },
+      {
+        "Pokemon": "scyther",
+        "Donut": "Bug"
       }
     ]
   },
@@ -13485,6 +13749,14 @@
       {
         "Pokemon": "beldum",
         "Donut": "Psychic"
+      },
+      {
+        "Pokemon": "lucario",
+        "Donut": "Fighting"
+      },
+      {
+        "Pokemon": "riolu",
+        "Donut": "Fighting"
       }
     ]
   },
@@ -13506,7 +13778,16 @@
       "steelix",
       "onix"
     ],
-    "Forceable": []
+    "Forceable": [
+      {
+        "Pokemon": "steelix",
+        "Donut": "Ground"
+      },
+      {
+        "Pokemon": "onix",
+        "Donut": "Ground"
+      }
+    ]
   },
   {
     "id": 254,
@@ -13538,6 +13819,14 @@
       {
         "Pokemon": "onix",
         "Donut": "Rock"
+      },
+      {
+        "Pokemon": "steelix",
+        "Donut": "Ground"
+      },
+      {
+        "Pokemon": "onix",
+        "Donut": "Ground"
       }
     ]
   },
