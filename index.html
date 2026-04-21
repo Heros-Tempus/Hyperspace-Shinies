@@ -405,6 +405,36 @@
     color: var(--muted);
   }
 
+  /* Type dropdown */
+  .type-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .type-select-wrap span {
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .type-select {
+    appearance: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 2rem 0.55rem 0.75rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+  }
+  .type-select:focus { border-color: rgba(255,255,255,0.25); }
+  .type-select.has-value { border-color: var(--active-type-color, rgba(255,255,255,0.25)); }
+
   /* Result count */
   .search-result-count {
     font-size: 0.75rem;
@@ -427,7 +457,7 @@
 <body>
 
 <header>
-  <h1>Legends ZA &mdash; Shiny Spawn Guide</h1>
+  <h1>Legends ZA - Shiny Spawn Guide</h1>
   <p>Donut-forceable shiny encounters by type</p>
 </header>
 
@@ -450,6 +480,30 @@
     <input id="forceable-only" type="checkbox">
     <span>Forceable only</span>
   </label>
+  <div class="type-select-wrap">
+    <span>Type</span>
+    <select id="type-filter" class="type-select" aria-label="Filter by Pokémon type">
+      <option value="">Any</option>
+      <option value="Bug">Bug</option>
+      <option value="Dark">Dark</option>
+      <option value="Dragon">Dragon</option>
+      <option value="Electric">Electric</option>
+      <option value="Fairy">Fairy</option>
+      <option value="Fighting">Fighting</option>
+      <option value="Fire">Fire</option>
+      <option value="Flying">Flying</option>
+      <option value="Ghost">Ghost</option>
+      <option value="Grass">Grass</option>
+      <option value="Ground">Ground</option>
+      <option value="Ice">Ice</option>
+      <option value="Normal">Normal</option>
+      <option value="Poison">Poison</option>
+      <option value="Psychic">Psychic</option>
+      <option value="Rock">Rock</option>
+      <option value="Steel">Steel</option>
+      <option value="Water">Water</option>
+    </select>
+  </div>
   <span id="result-count" class="search-result-count"></span>
 </div>
 
@@ -463,6 +517,14 @@ let DATA = [];
 // Each entry: { display: "Low Key Toxtricity", slug: "toxtricity-low-key" }
 // Multiple entries can share the same slug (both orderings of form names).
 let NAME_MAP = []; // sorted alphabetically by display for binary-search prefix matching
+// slug → Set of type strings, built once after PMAP loads
+let SLUG_TYPES = {};
+
+function buildSlugTypes() {
+  for (const [slug, data] of Object.entries(PMAP)) {
+    SLUG_TYPES[slug] = new Set(data.Types || []);
+  }
+}
 
 function buildNameMap() {
   const entries = [];
@@ -606,25 +668,45 @@ function buildTile(entry) {
 
 // ── Filtering ────────────────────────────────────────────────────────────────
 
-function tileMatches(entry, matchSlugs, forceableOnly) {
-  if (forceableOnly) {
-    if (matchSlugs === null) {
-      // Checkbox on, no text: show any tile that has at least one forceable entry
-      return entry.Forceable.length > 0;
-    }
-    // Checkbox on, text entered: match against forceable slugs
-    return entry.Forceable.some(f => matchSlugs.has(f.Pokemon));
+function tileMatches(entry, matchSlugs, forceableOnly, typeFilter) {
+  // Determine the pool of slugs relevant to this filter mode
+  const pool = forceableOnly
+    ? entry.Forceable.map(f => f.Pokemon)
+    : entry.AvailableData;
+
+  // If the pool is empty and forceable mode is on, nothing to match
+  if (forceableOnly && pool.length === 0) return false;
+
+  // Name filter: if matchSlugs is provided, at least one pool slug must be in it
+  if (matchSlugs !== null) {
+    if (!pool.some(s => matchSlugs.has(s))) return false;
   }
-  // Checkbox off: match against all available slugs
-  return entry.AvailableData.some(s => matchSlugs.has(s));
+
+  // Type filter: if a type is selected, at least one pool slug must have that type
+  if (typeFilter) {
+    if (!pool.some(s => SLUG_TYPES[s]?.has(typeFilter))) return false;
+  }
+
+  return true;
 }
 
 function applyFilter() {
   const query = document.getElementById('search-input').value.trim();
   const forceableOnly = document.getElementById('forceable-only').checked;
+  const typeFilter = document.getElementById('type-filter').value; // "" = no filter
+
+  // Tint the dropdown border to the selected type's colour
+  const typeSelect = document.getElementById('type-filter');
+  if (typeFilter) {
+    typeSelect.classList.add('has-value');
+    typeSelect.style.setProperty('--active-type-color', TYPE_COLORS[typeFilter] || '');
+  } else {
+    typeSelect.classList.remove('has-value');
+    typeSelect.style.removeProperty('--active-type-color');
+  }
 
   // Determine which slugs to match against.
-  // null = no slug filtering needed (forceableOnly with empty query).
+  // null = no name-slug filtering needed.
   let matchSlugs = null;
   if (query) {
     matchSlugs = slugsForExact(query);
@@ -637,7 +719,7 @@ function applyFilter() {
   }
 
   // If no filter is active at all, show everything
-  const noFilter = !query && !forceableOnly;
+  const noFilter = !query && !forceableOnly && !typeFilter;
 
   let visibleCount = 0;
 
@@ -651,7 +733,7 @@ function applyFilter() {
     grid.querySelectorAll('.tile').forEach(tileEl => {
       const id = parseInt(tileEl.dataset.id, 10);
       const entry = DATA.find(e => e.id === id);
-      const visible = noFilter || tileMatches(entry, matchSlugs, forceableOnly);
+      const visible = noFilter || tileMatches(entry, matchSlugs, forceableOnly, typeFilter);
 
       tileEl.classList.toggle('hidden', !visible);
       if (visible) { gridHasVisible = true; visibleCount++; }
@@ -762,6 +844,9 @@ function setupSearch() {
 
   // Checkbox toggles filter without requiring a re-type
   checkbox.addEventListener('change', applyFilter);
+
+  // Type dropdown triggers filter on change
+  document.getElementById('type-filter').addEventListener('change', applyFilter);
 }
 
 // ── Render ───────────────────────────────────────────────────────────────────
@@ -831,6 +916,7 @@ async function init() {
     PMAP = Object.assign({}, ...pmapRaw);
     DATA = dataRaw;
     buildNameMap();
+    buildSlugTypes();
     render();
     setupSearch();
   } catch (err) {
