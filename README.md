@@ -122,7 +122,7 @@ Maps Pokémon to:
 
 All Pokémon images used in this project are **official artwork** owned by The Pokémon Company.
 
-- Image files were originally sourced from Pokémon Database (https://pokemondb.net/)
+- Image files were originally sourced from Pokémon Database [PokémonDB](https://pokemondb.net/)
 - Images are stored locally in this repository to:
   - Reduce external requests
   - Improve performance and load times
