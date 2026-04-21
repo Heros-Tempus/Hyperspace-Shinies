@@ -136,3 +136,16 @@ All rights belong to The Pokémon Company, Nintendo, Game Freak, and Creatures I
 If requested by a rights holder, the repository can be updated to remove locally hosted images and instead reference the original external image URLs.
 
 If you are a rights holder and would like any content removed or modified, please open an issue or contact the repository owner.
+
+## License
+
+This project’s **code and original data** are licensed under the MIT License.
+
+### Third-Party Content
+
+This repository includes Pokémon names, images, and related assets which are **not covered by the MIT License**.
+
+- Pokémon and all related properties are owned by The Pokémon Company, Nintendo, Game Freak, and Creatures Inc.
+- These assets are used for non-commercial, informational purposes only
+
+No rights are granted for redistribution or commercial use of these assets.
