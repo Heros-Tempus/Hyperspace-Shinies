@@ -585,8 +585,11 @@ const TYPE_COLORS = {
 
 const MAX_STARS = 5;
 
-function imgPath(slug) {
-  return PMAP[slug]?.ImagePath ?? '';
+function imgSrc(slug) {
+  return PMAP[slug]?.ImagePath ?? PMAP[slug]?.ImageURL ?? '';
+}
+function imgFallback(slug) {
+  return PMAP[slug]?.ImageURL ?? '';
 }
 function displayName(slug) {
   return PMAP[slug]?.Pokemon ?? slug;
@@ -607,10 +610,11 @@ function buildStars(count, color) {
 }
 
 function buildPokeChip(slug) {
-  const path = imgPath(slug);
+  const src = imgSrc(slug);
+  const fallback = imgFallback(slug);
   const name = displayName(slug);
   return `<div class="poke-chip">
-    <img src="${path}" alt="${name}" width="52" height="52" loading="lazy" onerror="this.style.opacity='0.2'">
+    <img src="${src}" alt="${name}" width="52" height="52" loading="lazy" data-fallback="${fallback}" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback}else{this.style.opacity='0.2'}">
     <span>${name}</span>
   </div>`;
 }
@@ -620,9 +624,10 @@ function buildTile(entry) {
   const preview = pick3(entry.AvailableData);
 
   const previewImgs = preview.map(slug => {
-    const path = imgPath(slug);
+    const src = imgSrc(slug);
+    const fallback = imgFallback(slug);
     const name = displayName(slug);
-    return `<img class="poke-img" src="${path}" alt="${name}" loading="lazy" onerror="this.style.opacity='0.15'">`;
+    return `<img class="poke-img" src="${src}" alt="${name}" loading="lazy" data-fallback="${fallback}" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback}else{this.style.opacity='0.15'}">`;
   }).join('');
 
   const allChips = entry.AvailableData.map(s => buildPokeChip(s)).join('');
