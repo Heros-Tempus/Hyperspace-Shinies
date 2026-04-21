@@ -12,7 +12,7 @@ The core idea:
 
 ### Example
 
-- **Bug Type — Zone 10 — Star Level 4**
+- **Bug Type - Zone 10 - Star Level 4**
 - Available Pokémon:
   - Kleavor
   - Scyther
@@ -40,7 +40,7 @@ Because from a shiny hunting perspective:
 
 ### Example
 
-- **Bug Type — Zone 3 — Star Level 4**
+- **Bug Type - Zone 3 - Star Level 4**
 - Available:
   - Pinsir
   - Beedrill
