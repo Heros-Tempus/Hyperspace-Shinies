@@ -75,7 +75,7 @@ Both are considered valid outcomes for shiny Beedrill hunting.
 └── images/                        # Local sprite assets
 ```
 
-### ~index.html~
+### index.html
 
 - Fully self-contained UI
 - Loads both JSON files dynamically
@@ -84,7 +84,7 @@ Both are considered valid outcomes for shiny Beedrill hunting.
   - Search + filtering
   - Expand/collapse behavior
 
-### ~data_modified_cleaned.json~
+### data_modified_cleaned.json
 
 Defines encounter data per zone:
 
@@ -101,7 +101,7 @@ Defines encounter data per zone:
 }
 ```
 
-### ~Pokemon_Hyperspace_Map.json~
+### Pokemon_Hyperspace_Map.json
 
 Maps Pokémon to:
 
