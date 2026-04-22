@@ -1,4 +1,4 @@
-# Legends ZA — Shiny Hyperspace Guide
+# Legends ZA - Shiny Hyperspace Guide
 
 A static website (hosted via GitHub Pages) that identifies which Pokémon in the *Mega Dimension DLC* can be **force-spawned shiny** using donut mechanics.
 
@@ -12,7 +12,7 @@ The core idea:
 
 ### Example
 
-- **Bug Type — Zone 10 — Star Level 4**
+- **Bug Type - Zone 10 - Star Level 4**
 - Available Pokémon:
   - Kleavor
   - Scyther
@@ -40,7 +40,7 @@ Because from a shiny hunting perspective:
 
 ### Example
 
-- **Bug Type — Zone 3 — Star Level 4**
+- **Bug Type - Zone 3 - Star Level 4**
 - Available:
   - Pinsir
   - Beedrill
@@ -75,7 +75,7 @@ Both are considered valid outcomes for shiny Beedrill hunting.
 └── images/                        # Local sprite assets
 ```
 
-### ~index.html~
+### index.html
 
 - Fully self-contained UI
 - Loads both JSON files dynamically
@@ -84,7 +84,7 @@ Both are considered valid outcomes for shiny Beedrill hunting.
   - Search + filtering
   - Expand/collapse behavior
 
-### ~data_modified_cleaned.json~
+### data_modified_cleaned.json
 
 Defines encounter data per zone:
 
@@ -101,7 +101,7 @@ Defines encounter data per zone:
 }
 ```
 
-### ~Pokemon_Hyperspace_Map.json~
+### Pokemon_Hyperspace_Map.json
 
 Maps Pokémon to:
 
