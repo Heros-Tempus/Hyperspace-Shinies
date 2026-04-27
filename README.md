@@ -1,6 +1,6 @@
 # Legends ZA - Shiny Hyperspace Guide
 
-A static website (hosted via GitHub Pages) that identifies which Pokémon in the *Mega Dimension DLC* can be **force-spawned shiny** using donut mechanics.
+A static website ([hosted via Github Pages](https://heros-tempus.github.io/Hyperspace-Shinies/)) that identifies which Pokémon in the *Mega Dimension DLC* can be **force-spawned shiny** using donut mechanics.
 
 ## Overview
 
