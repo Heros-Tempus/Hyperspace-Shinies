@@ -118,6 +118,16 @@ Maps Pokémon to:
    - If multiple share that type → **not forceable**
 4. Evolution families are treated as interchangeable
 
+## Limitations
+
+### Multi-Pool Zones
+
+Some larger zones may contain two or more distinct spawn pools that get mixed together during a run. This guide's forceability calculations assume a single pool per zone.
+
+When multiple pools are combined, the type-uniqueness guarantee breaks down — a Pokémon that appears to be the only one of its type may be competing with Pokémon from another pool. In those cases, **the listed forceable shinies cannot be confirmed without checking in-game**.
+
+This affects a minority of larger zones; the majority of zones have a single pool and the data here is reliable.
+
 ## Image Credits & Usage
 
 All Pokémon images used in this project are **official artwork** owned by The Pokémon Company.

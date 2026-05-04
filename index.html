@@ -448,6 +448,19 @@
   .tile-grid.all-hidden,
   .type-divider.all-hidden { display: none; }
 
+  /* ── Notice banner ── */
+  .notice {
+    margin: 1rem 2rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .notice strong { color: var(--accent); }
+
   /* ── Scrollbar ── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -460,6 +473,10 @@
   <h1>Legends ZA - Shiny Spawn Guide</h1>
   <p>Donut-forceable shiny encounters by type</p>
 </header>
+
+<div class="notice">
+  <strong>Note:</strong> The forceability data on this site is reliable for zones with a single spawn pool, which covers the majority of zones. Some larger zones may mix two or more distinct spawn pools together — in those cases the type-uniqueness guarantee breaks down and the listed forceable shinies cannot be confirmed without checking in-game.
+</div>
 
 <div class="search-bar">
   <div class="search-input-wrap">
@@ -862,7 +879,7 @@ function render() {
     if (!groups[entry.Type]) groups[entry.Type] = [];
     groups[entry.Type].push(entry);
   }
-  const typeOrder = Object.keys(groups).sort();
+  const typeOrder = Object.keys(groups);
   for (const type of typeOrder) {
     groups[type].sort((a, b) => a['Star Level'] - b['Star Level'] || a.Zone - b.Zone);
   }
